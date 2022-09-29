@@ -1,11 +1,14 @@
 package com.example.listadoprod.dataadapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.listadoprod.R
 import com.example.listadoprod.databinding.ActivityMainBinding
 import com.example.listadoprod.databinding.ItemlistaBinding
 import com.example.listadoprod.dataclass.Producto
@@ -42,12 +45,40 @@ class ProductoAdapter(val listsProd: MutableList<Producto>, var bindingMain: Act
                 }
                 btnEliminar.setOnClickListener {
                     var pos = position
+                    confirmarEliminacion(pos).show()
+                }
+            }
+        }
+
+        private fun confirmarEliminacion(pos: Int): AlertDialog{
+            val confirmarAlert = AlertDialog.Builder(context)
+                .setTitle("ELIMINAR PRODUCTO")
+                .setMessage(
+                    "Esta seguro que desea eliminar el producto: \n " +
+                            "${listaProd[pos].nombre} ?"
+                )
+                .setIcon(R.drawable.ic_warning)
+                .setPositiveButton("Si") { _, _ ->
+
+                    Toast.makeText(
+                        context,
+                        "Registro eliminado exitosamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                     listaProd.remove(listaProd[pos])
                     bindingMain2.rcvLista.layoutManager =
                         LinearLayoutManager(context) //revisar context
                     bindingMain2.rcvLista.adapter = ProductoAdapter(listaProd, bindingMain2)
                 }
-            }
+                .setNegativeButton("No") {_,_ ->
+                    Toast.makeText(
+                        context,
+                        "Abortado",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }.create()
+            return confirmarAlert
         }
 
         private fun selectedPosition(position: Int, producto: Producto) {

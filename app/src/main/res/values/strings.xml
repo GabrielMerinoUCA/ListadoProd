@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ListadoProd</string>
+    <string name="id"><font family="@font/jura">ID</font></string>
+    <string name="nombre_de_producto"><font family="@font/jura">Nombre de producto</font></string>
+    <string name="precio"><font family="@font/jura">Precio</font></string>
+
 </resources>

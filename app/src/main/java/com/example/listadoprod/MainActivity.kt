@@ -1,5 +1,6 @@
 package com.example.listadoprod
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -36,26 +37,29 @@ class MainActivity : AppCompatActivity() {
                 val precio: Double = etPrecio.text.toString().toDouble()
                 val prod = Producto(id, nombre, precio)
                 listaProd.add(prod)
-            }catch (ex: Exception){
-                Toast.makeText(this@MainActivity, "Error: ${ex.toString()} ",
-                    Toast.LENGTH_LONG).show()
+            } catch (ex: Exception) {
+                Toast.makeText(
+                    this@MainActivity, "Error: ${ex.toString()} ",
+                    Toast.LENGTH_LONG
+                ).show()
             }
             rcvLista.layoutManager = LinearLayoutManager(this@MainActivity)
-            rcvLista.adapter = ProductoAdapter(listaProd, binding)   //crea un nuevo Producto Adapter, permite
-                                                            // llamada nueva de onCreateViewHolder
+            rcvLista.adapter =
+                ProductoAdapter(listaProd, binding)   //crea un nuevo Producto Adapter, permite
+            // llamada nueva de onCreateViewHolder
             limpiar()
-
         }
     }
 
     private fun editarProd() {
-        try{
+        try {
             var index: Int = 0
             with(binding) {
                 if (etID.text.toString() != "" && etNombreProd.text.toString() != "" &&
-                    etNombreProd.text.toString() != "") {
-                    for(p in listaProd){
-                        if(p.id == etID.text.toString().toInt()) {
+                    etNombreProd.text.toString() != ""
+                ) {
+                    for (p in listaProd) {
+                        if (p.id == etID.text.toString().toInt()) {
                             listaProd[index].nombre = etNombreProd.text.toString()
                             listaProd[index].precio = etPrecio.text.toString().toDouble()
                             rcvLista.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -67,13 +71,15 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }
-                if(index == listaProd.size){
+                if (index == listaProd.size) {
                     throw Exception("El registro no existe")
                 }
             }
-        }catch (ex: Exception){
-            Toast.makeText(this@MainActivity, "Error: ${ex.toString()} ",
-                Toast.LENGTH_LONG).show()
+        } catch (ex: Exception) {
+            Toast.makeText(
+                this@MainActivity, "Error: ${ex.toString()} ",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -87,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnEditar.setOnClickListener {
             editarProd()
         }
+
     }
 
 
